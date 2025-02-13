@@ -7,14 +7,15 @@ block main
             .col-12
                 +box-head("Danh sách sản phẩm")
         .row
-            .col-4.mb-3
-                .product-item
-                    .inner-image
-                        img(src="https://techland.com.vn/wp-content/uploads/2021/09/iphone-13-pink-select-2021.png", alt="iPhone 13")
-                    .inner-content
-                        h3.inner-title iPhone 13
-                        .inner-pricing
-                            span.inner-price-new $80
-                            span.inner-price-old 
-                                del $100
-                            span.inner-discount -20%
+            each item in products
+                .col-4.mb-3
+                    .product-item
+                        .inner-image
+                            img(src=item.thumbnail, alt=item.title)
+                        .inner-content
+                            h3.inner-title #{item.title}
+                            .inner-pricing
+                                span.inner-price-new #{item.priceNew}$
+                                span.inner-price-old 
+                                    del #{item.price}$
+                                span.inner-discount #{item.discountPercentage}%
