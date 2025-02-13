@@ -9,6 +9,7 @@ const route = require('./routes/client/index.route');
 app.set('view engine', 'pug');
 app.set('views', './views');
 
+app.use(express.static('public'));
 
 route(app);
 
