@@ -5,6 +5,8 @@ const app = express()
 const port = process.env.PORT
 
 const database = require('./config/database.js')
+const systemConfig = require('./config/system.js')
+
 
 database.connect();
 
@@ -13,6 +15,8 @@ const routeAdmin = require('./routes/admin/index.route');
 
 app.set('view engine', 'pug');
 app.set('views', './views');
+
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 app.use(express.static('public'));
 
