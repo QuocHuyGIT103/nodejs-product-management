@@ -9,6 +9,7 @@ const database = require('./config/database.js')
 database.connect();
 
 const route = require('./routes/client/index.route');
+const routeAdmin = require('./routes/admin/index.route');
 
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -16,6 +17,8 @@ app.set('views', './views');
 app.use(express.static('public'));
 
 route(app);
+routeAdmin(app);
+
 
 app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`)

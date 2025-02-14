@@ -6,9 +6,9 @@ module.exports.index = async (req, res) => {
         deleted: false
     });
 
-    const newProducts = products.map(item => {
+    const newProducts = products.map(product => {
         product.priceNew = product.price * (1 - product.discountPercentage / 100).toFixed(0);
-        return item;
+        return product;
     });
 
 
