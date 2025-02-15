@@ -16,6 +16,8 @@ const routeAdmin = require('./routes/admin/index.route');
 app.set('view engine', 'pug');
 app.set('views', './views');
 
+
+//App locals variable
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 app.use(express.static('public'));
