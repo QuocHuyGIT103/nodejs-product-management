@@ -38,6 +38,13 @@ module.exports.index = async (req, res) => {
         find.status = req.query.status;
     }
 
+    let keyword = "";
+
+    if(req.query.keyword){
+        keyword = req.query.keyword;
+        const regex = new RegExp(keyword, "i");
+        find.title = regex;
+    }
 
     const products = await Product.find(find);
 
@@ -46,6 +53,7 @@ module.exports.index = async (req, res) => {
     res.render("admin/pages/products/index", {
         pageTitle: "Trang DS SP",
         products: products || [],
-        filterStatus: filterStatus
+        filterStatus: filterStatus,
+        keyword: keyword
     })
 }
