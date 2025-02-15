@@ -1,4 +1,9 @@
 /* Header */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .header {
     background: #323232;
     padding: 10px 20px;
@@ -16,25 +21,33 @@
     color:#fff;
 }
     
+.body {
+    display: flex; /* Đảm bảo bố cục theo chiều ngang */
+    min-height: 100vh;
+}
 
+/* Sidebar */
 .body .sider {
-    width: 100px; /* Đảm bảo chiều rộng đủ */
+    width: 220px; /* Đảm bảo chiều rộng hợp lý */
     background: #323232;
     color: #fff;
-    height: calc(100vh - 56px);
+    height: 100vh; /* Full chiều cao màn hình */
     position: fixed;
-    top: 56px;
+    top: 0;
     left: 0;
-    margin-right: 20px;
+    padding-top: 56px; /* Để tránh che header */
 }
 
+/* Main Content */
 .body .main {
- /* Dịch nội dung sang phải để tránh bị che */
+    margin-left: 220px; /* Đẩy nội dung sang phải */
     padding: 20px;
-    width: calc(100% - 200px);
+    flex-grow: 1; /* Để chiếm phần còn lại của màn hình */
     overflow-x: hidden;
-    margin-left: 500px;
+    min-height: 100vh; /* Đảm bảo nội dung luôn có chiều cao */
+    background: #fff;  /* Để thấy rõ nội dung */
 }
+
 
 /* Sider */
 .sider .inner-menu ul {
