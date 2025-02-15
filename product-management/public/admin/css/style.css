@@ -1,10 +1,12 @@
 /* Header */
 .header {
     background: #323232;
-    padding: 10px 0;
+    padding: 10px 20px;
     position: sticky;
     top: 0;
-    z-index: 999;
+    width: 100%;
+    z-index: 1000;
+    color: #fff;
 }
 
     
@@ -16,20 +18,22 @@
     
 
 .body .sider {
-    width: 150px;
+    width: 100px; /* Đảm bảo chiều rộng đủ */
     background: #323232;
     color: #fff;
     height: calc(100vh - 56px);
     position: fixed;
     top: 56px;
     left: 0;
+    margin-right: 20px;
 }
 
 .body .main {
-    margin: 15px;
-    position: relative;
-    left: 150px;
-    width: calc(100% - 180px);
+ /* Dịch nội dung sang phải để tránh bị che */
+    padding: 20px;
+    width: calc(100% - 200px);
+    overflow-x: hidden;
+    margin-left: 500px;
 }
 
 /* Sider */
