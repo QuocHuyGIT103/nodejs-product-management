@@ -23,14 +23,33 @@ module.exports.index = async (req, res) => {
     }
 
     //Tìm kiếm 
-
     const objectSearch = searchHelper(req.query);
 
     if(objectSearch.regex){
         find.title = objectSearch.regex;
     }
 
-    const products = await Product.find(find);
+    //Pagination
+    let objectPagination = {
+        limitItems: 4,
+        currentPage: 1
+    };
+
+    if(req.query.page){
+        objectPagination.currentPage = parseInt(req.query.page);
+
+    }
+
+    objectPagination.skip = (objectPagination.currentPage -1) * objectPagination.limitItems;
+
+    const countProducts = await Product.countDocuments(find);
+    const totalPages = Math.ceil(countProducts/objectPagination.limitItems);
+
+    objectPagination.totalPages = totalPages;
+    //End Pagination
+
+
+    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
 
     // console.log(products);
 
@@ -38,6 +57,7 @@ module.exports.index = async (req, res) => {
         pageTitle: "Trang DS SP",
         products: products || [],
         filterStatus: filterStatus,
-        keyword: objectSearch.keyword
+        keyword: objectSearch.keyword,
+        pagination: objectPagination
     })
 }

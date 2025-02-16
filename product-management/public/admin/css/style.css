@@ -28,7 +28,7 @@
 
 /* Sidebar */
 .body .sider {
-    width: 220px; /* Đảm bảo chiều rộng hợp lý */
+    width: 130px; /* Đảm bảo chiều rộng hợp lý */
     background: #323232;
     color: #fff;
     height: 100vh; /* Full chiều cao màn hình */
@@ -40,7 +40,7 @@
 
 /* Main Content */
 .body .main {
-    margin-left: 220px; /* Đẩy nội dung sang phải */
+    margin-left: 150px; /* Đẩy nội dung sang phải */
     padding: 20px;
     flex-grow: 1; /* Để chiếm phần còn lại của màn hình */
     overflow-x: hidden;
