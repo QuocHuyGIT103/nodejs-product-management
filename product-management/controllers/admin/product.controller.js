@@ -1,69 +1,89 @@
 // [GET] /admin/products
-const filterStatus = require('../../helpers/filterStatus');
-const Product = require('../../models/product.model')
+const filterStatus = require("../../helpers/filterStatus");
+const Product = require("../../models/product.model");
 
-const filterStatusHelper = require('../../helpers/filterStatus');
-const searchHelper = require('../../helpers/search');
-const paginationHelper = require('../../helpers/pagination');
+const filterStatusHelper = require("../../helpers/filterStatus");
+const searchHelper = require("../../helpers/search");
+const paginationHelper = require("../../helpers/pagination");
 
 //[GET] /admin/products
 module.exports.index = async (req, res) => {
-    // console.log(req.query.status);
+  // console.log(req.query.status);
 
-    // Đoạn bộ lọc
-    const filterStatus = filterStatusHelper(req.query);
+  // Đoạn bộ lọc
+  const filterStatus = filterStatusHelper(req.query);
 
-    // console.log(filterStatus);
-    
-    let find = {
-        deleted: false
-    };
+  // console.log(filterStatus);
 
-    if(req.query.status){
-        find.status = req.query.status;
-    }
+  let find = {
+    deleted: false,
+  };
 
-    //Tìm kiếm 
-    const objectSearch = searchHelper(req.query);
+  if (req.query.status) {
+    find.status = req.query.status;
+  }
 
-    if(objectSearch.regex){
-        find.title = objectSearch.regex;
-    }
+  //Tìm kiếm
+  const objectSearch = searchHelper(req.query);
 
-    //Pagination
+  if (objectSearch.regex) {
+    find.title = objectSearch.regex;
+  }
 
-    const countProducts = await Product.countDocuments(find);
+  //Pagination
 
-    let objectPagination = paginationHelper(
-        {
-            limitItems: 4,
-            currentPage: 1
-        },
-        req.query,
-        countProducts   
-    );
-    //End Pagination
+  const countProducts = await Product.countDocuments(find);
 
+  let objectPagination = paginationHelper(
+    {
+      limitItems: 4,
+      currentPage: 1,
+    },
+    req.query,
+    countProducts
+  );
+  //End Pagination
 
-    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
+  const products = await Product.find(find)
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip);
 
-    // console.log(products);
+  // console.log(products);
 
-    res.render("admin/pages/products/index", {
-        pageTitle: "Trang DS SP",
-        products: products || [],
-        filterStatus: filterStatus,
-        keyword: objectSearch.keyword,
-        pagination: objectPagination
-    })
-}
+  res.render("admin/pages/products/index", {
+    pageTitle: "Trang DS SP",
+    products: products || [],
+    filterStatus: filterStatus,
+    keyword: objectSearch.keyword,
+    pagination: objectPagination,
+  });
+};
 
-// [GET] /admin/products/changeStatus/:status/:id
+// [PATCH] /admin/products/changeStatus/:status/:id
 module.exports.changeStatus = async (req, res) => {
-    const status = req.params.status;
-    const id = req.params.id;
+  const status = req.params.status;
+  const id = req.params.id;
 
-    await Product.updateOne({_id: id}, {status: status});
+  await Product.updateOne({ _id: id }, { status: status });
 
-    res.redirect("back");
-}
+  res.redirect("back");
+};
+
+// [PATCH] /admin/products/changeMulti
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(", ");
+
+  switch (type) {
+    case "active":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+      break;
+    case "inactive":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+      break;
+    default:
+      break;
+  }
+
+  res.redirect("back");
+};
