@@ -6,7 +6,7 @@ const filterStatusHelper = require('../../helpers/filterStatus');
 const searchHelper = require('../../helpers/search');
 const paginationHelper = require('../../helpers/pagination');
 
-
+//[GET] /admin/products
 module.exports.index = async (req, res) => {
     // console.log(req.query.status);
 
@@ -56,4 +56,14 @@ module.exports.index = async (req, res) => {
         keyword: objectSearch.keyword,
         pagination: objectPagination
     })
+}
+
+// [GET] /admin/products/changeStatus/:status/:id
+module.exports.changeStatus = async (req, res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+
+    await Product.updateOne({_id: id}, {status: status});
+
+    res.redirect("back");
 }
