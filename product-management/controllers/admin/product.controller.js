@@ -81,6 +81,12 @@ module.exports.changeMulti = async (req, res) => {
     case "inactive":
       await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
       break;
+    case "delete-all":
+      await Product.updateMany(
+        { _id: { $in: ids } },
+        { deleted: true, deletedAt: new Date() }
+      );
+      break;
     default:
       break;
   }
@@ -94,7 +100,10 @@ module.exports.deleteItem = async (req, res) => {
 
   // await Product.deleteOne({ _id: id }); xóa vĩnh viễn
 
-  await Product.updateOne({ _id: id }, { deleted: true }); // xóa tạm thời
+  await Product.updateOne(
+    { _id: id },
+    { deleted: true, deletedAt: new Date() }
+  ); // xóa tạm thời
 
   res.redirect("back");
 };
