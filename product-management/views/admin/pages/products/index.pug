@@ -31,6 +31,7 @@ block main
                             th Hình ảnh
                             th Tiêu đề
                             th Giá
+                            th Position
                             th Trạng thái
                             th Hành động
                     tbody
@@ -48,6 +49,14 @@ block main
                                     //- alt=item.title, width="100px", height="auto")
                                 td #{item.title}
                                 td #{item.price}$
+                                td
+                                    input(
+                                        type="number"
+                                        value=item.position
+                                        name="position"
+                                        min="1"
+                                        style="width: 70px"
+                                    )
                                 td
                                     if(item.status == 'active')
                                         a(class="badge badge-success"
