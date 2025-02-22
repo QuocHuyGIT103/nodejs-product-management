@@ -138,3 +138,19 @@ if (formChangeMulti) {
   });
 }
 // End Form Change Multi
+
+//Show Alert
+const showAlert = document.querySelector("[show-alert]");
+if (showAlert) {
+  const time = showAlert.getAttribute("data-time");
+  const closAlert = showAlert.querySelector("[close-alert]");
+
+  closAlert.addEventListener("click", () => {
+    showAlert.classList.add("alert-hidden");
+  });
+
+  setTimeout(() => {
+    showAlert.classList.add("alert-hidden");
+  }, time);
+}
+//ENd Show Alert
