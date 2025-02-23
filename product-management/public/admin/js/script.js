@@ -143,9 +143,9 @@ if (formChangeMulti) {
 const showAlert = document.querySelector("[show-alert]");
 if (showAlert) {
   const time = showAlert.getAttribute("data-time");
-  const closAlert = showAlert.querySelector("[close-alert]");
+  const closeAlert = showAlert.querySelector("[close-alert]");
 
-  closAlert.addEventListener("click", () => {
+  closeAlert.addEventListener("click", () => {
     showAlert.classList.add("alert-hidden");
   });
 
@@ -154,3 +154,19 @@ if (showAlert) {
   }, time);
 }
 //ENd Show Alert
+
+//Upload Image
+const uploadImage = document.querySelector("[upload-image]");
+if (uploadImage) {
+  const uploadImageInput = document.querySelector("[upload-image-input]");
+  const uploadImagePreview = document.querySelector("[upload-image-preview]");
+
+  uploadImageInput.addEventListener("change", (e) => {
+    console.log(e);
+    const file = e.target.files[0];
+    if (file) {
+      uploadImagePreview.src = URL.createObjectURL(file);
+    }
+  });
+}
+//End Upload Image
