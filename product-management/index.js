@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Flash
 app.use(cookieParser("keyboard cat"));
-app.use(session({ cookie: { maxAge: 60000 }, secret: "113" }));
+app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //End Flash
 
