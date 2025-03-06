@@ -29,8 +29,8 @@ const systemConfig = require("./config/system.js");
 
 database.connect();
 
-const clientRoutes = require("./routes/client");
-const adminRoutes = require("./routes/admin");
+const clientRoutes = require("./routes/client/index.route");
+const adminRoutes = require("./routes/admin/index.route");
 
 app.set("view engine", "pug");
 app.set("views", `${__dirname}/views`);
@@ -44,6 +44,7 @@ app.use(express.static(`${__dirname}/public`));
 //   console.log(`app listening at http://localhost:${port}`);
 // });
 // Sử dụng route
+
 app.use("/", clientRoutes);
 app.use("/admin", adminRoutes);
 
