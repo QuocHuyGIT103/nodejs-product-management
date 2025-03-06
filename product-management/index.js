@@ -29,8 +29,8 @@ const systemConfig = require("./config/system.js");
 
 database.connect();
 
-const route = require("./routes/client/index.route");
-const routeAdmin = require("./routes/admin/index.route");
+const clientRoutes = require("./routes/client");
+const adminRoutes = require("./routes/admin");
 
 app.set("view engine", "pug");
 app.set("views", `${__dirname}/views`);
@@ -40,11 +40,12 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 app.use(express.static(`${__dirname}/public`));
 
-route(app);
-routeAdmin(app);
-
 // app.listen(port, () => {
 //   console.log(`app listening at http://localhost:${port}`);
 // });
+// Sử dụng route
+app.use("/", clientRoutes);
+app.use("/admin", adminRoutes);
 
+// Xuất app để Vercel có thể chạy được
 module.exports = app;
