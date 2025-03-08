@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
+include ../../mixins/sort.pug
 
 block main
     +alert-success(3000)
@@ -12,6 +13,9 @@ block main
         .card-header Bộ lọc và Tìm kiếm
         .card-body
             .row
+                .col-4
+                    +sort()
+
                 .col-6
                     +filter-status(filterStatus)
                 .col-6
@@ -27,6 +31,7 @@ block main
                             class="btn btn-outline-success"
                             href=`${prefixAdmin}/products/create`
                         ) + Thêm sản phẩm
+    
                 table(
                     class = "table table-hovertable-sm"
                     checkbox-multi
