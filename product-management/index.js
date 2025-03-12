@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const methodOverride = require("method-override");
 require("dotenv").config();
 
@@ -21,6 +22,12 @@ app.use(cookieParser("keyboard cat"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //End Flash
+
+//Tiny MCE
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
 
 const port = process.env.PORT;
 
