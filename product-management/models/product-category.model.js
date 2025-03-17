@@ -15,12 +15,11 @@ const productCategorySchema = new mongoose.Schema(
     status: String,
     position: Number,
     slug: { type: String, slug: "title" },
-    // deleted: {
-    //   type: Boolean,
-    //   default: false,
-    //   unique: true,
-    // },
-    // deletedAt: Date,
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
+    deletedAt: Date,
   },
   {
     timestamps: true,
